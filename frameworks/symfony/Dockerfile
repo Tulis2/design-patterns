@@ -2,7 +2,8 @@ FROM composer:1.6
 FROM php:7.2-fpm-alpine3.8
 
 RUN apk add --no-cache \
-		git
+		git \
+		yarn
 
 ENV APCU_VERSION 5.1.11
 ENV XDEBUG_VERSION 2.6.0
