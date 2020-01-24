@@ -1,12 +1,104 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>
+		{% block title %}
+			Welcome to Design Patterns!
+		{% endblock %}
+	</title>
+	{% block stylesheets %}
+		{{ encore_entry_link_tags('app') }}
+	{% endblock %}
+</head>
+<body>
+{% set current_path = app.request.get('_route') %}
+
+{% block body %}
+	<div class="wrapper">
+		<nav id="sidebar">
+			<div class="sidebar-header">
+				<h3>
+					<a href="{{ path('index') }}">Design Patterns</a>
+				</h3>
+			</div>
+			<ul class="list-unstyled components">
+				<p>{{ page_title|default('') }}</p>
+
+				{% set dpActive = false %}
+				{% if current_path starts with 'dp_' %}
+					{% set dpActive = true %}
+				{% endif %}
+
+				<li class="{{ dpActive ? 'active' : '' }}">
+					<a href="#creationalSubmenu"
+					   data-toggle="collapse"
+					   aria-expanded="{{ dpActive }}"
+					   class="dropdown-toggle">
+						{% trans %}Creational{% endtrans %}
+					</a>
+					<ul class="collapse list-unstyled {{ dpActive ? 'collapse show' : '' }}" id="creationalSubmenu">
+						{% include '@tmpl/menu/patterns_menu.html.twig' %}
+					</ul>
+				</li>
+				<li>
+					<a href="#">About</a>
+					<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+					   class="dropdown-toggle">Pages</a>
+					<ul class="collapse list-unstyled" id="pageSubmenu">
+						<li>
+							<a href="#">Page 1</a>
+						</li>
+						<li>
+							<a href="#">Page 2</a>
+						</li>
+						<li>
+							<a href="#">Page 3</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">Portfolio</a>
+				</li>
+				<li>
+					<a href="#">Contact</a>
+				</li>
+			</ul>
+			<ul class="list-unstyled CTAs">
+				<li>
+					<a href="#" class="download">Download source</a>
+				</li>
+			</ul>
+		</nav>
+		<div id="content">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div class="container-fluid">
+					<button type="button" id="sidebarCollapse" class="navbar-btn">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+					<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+							data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+							aria-expanded="false" aria-label="Toggle navigation">
+						<i class="fas fa-align-justify"></i>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						{% include '@tmpl/menu/locale.html.twig' %}
+					</div>
+				</div>
+			</nav>
+			{% block content %}
+
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
 </html>

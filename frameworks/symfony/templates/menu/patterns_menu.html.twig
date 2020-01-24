@@ -1,0 +1,43 @@
+{% set links = [
+	{
+		name: 'dp_creational_abstract_factory',
+		title : 'Abstract Factory'
+	},
+	{
+		name : 'dp_creational_factory_method',
+		title : 'Factory Method'
+	},
+	{
+		name : 'dp_creational_static_factory',
+		title : 'Static Factory'
+	},
+	{
+		name : 'dp_creational_simple_factory',
+		title : 'Simple Factory'
+	},
+	{
+		name : 'dp_creational_singleton',
+		title : 'Singleton'
+	},
+	{
+		name : 'dp_creational_multiton',
+		title : 'Multiton'
+	},
+	{
+		name : 'dp_creational_builder',
+		title : 'Builder'
+	},
+	{
+		name : 'dp_creational_prototype',
+		title : 'Prototype'
+	},
+] %}
+
+{% for link in links %}
+	{% set activeLink = current_path == link.name %}
+	<li class="subLink {{ activeLink ? 'active' : '' }}">
+		<a href="{{ path(link.name) }}">
+			{{ link.title|trans }}
+		</a>
+	</li>
+{% endfor %}
