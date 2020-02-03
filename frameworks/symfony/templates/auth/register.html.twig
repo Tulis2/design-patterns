@@ -1,0 +1,17 @@
+{% extends '@tmpl/auth/wrapper.html.twig' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block auth_title %}
+	<h2>Registration Page</h2>
+{% endblock %}
+
+{% block auth_form %}
+	{{ form_start(registrationForm) }}
+	{{ form_row(registrationForm.username) }}
+	{{ form_row(registrationForm.plainPassword) }}
+	{{ form_row(registrationForm.agreeTerms) }}
+	<button type="submit" class="btn btn-primary">Register</button>
+	<a href="{{ path('app_login') }}" class="btn btn-secondary">Login</a>
+	{{ form_end(registrationForm) }}
+{% endblock %}
